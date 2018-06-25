@@ -1,6 +1,10 @@
 # Adding Support for a Dashboard #
 
-Adding support for submitting our test results to a dashboard is very easy. We already defined a number of tests for our project in the earlier steps of this tutorial. We just have to run those tests and submit them to a dashboard. To include support for dashboards we include the CTest module in our toplevel CMakeLists.txt.
+Adding support for submitting our test results to a dashboard is very easy. We
+already defined a number of tests for our project in the earlier steps of this
+tutorial. We just have to run those tests and submit them to a dashboard. To
+include support for dashboards we include the CTest module in our top-level
+CMakeLists.txt.
 
   # enable testing
   enable_testing()
@@ -8,7 +12,8 @@ Adding support for submitting our test results to a dashboard is very easy. We a
   # enable dashboard scripting
   include(CTest)
 
-We also specify a CTestConfig.cmake file where we can specify the name of the project, and where to submit the dashboard.
+We will also need to create a CTestConfig.cmake file where we can specify the
+name of the project and where to submit the dashboard.
 
   set(CTEST_PROJECT_NAME "CMakeTutorial")
   set(CTEST_NIGHTLY_START_TIME "01:00:00 UTC")
@@ -18,4 +23,11 @@ We also specify a CTestConfig.cmake file where we can specify the name of the pr
   set(CTEST_DROP_LOCATION "/submit.php?project=CMakeTutorial")
   set(CTEST_DROP_SITE_CDASH TRUE)
 
-CTest will read in this file when it runs. To create a simple dashboard you can run CMake on your project, change directory to the binary tree, and then run ctest –D Experimental. The results of your dashboard will be uploaded to Kitware's public dashboard here https://my.cdash.org/index.php?project=CMakeTutorial.
+CTest will read in this file when it runs. To create a simple dashboard you can
+run cmake or cmake-gui to configure the project, but do not build it yet.
+Instead, change directory to the binary tree, and then run:
+ 'ctest [-VV] –D Experimental'. On Windows, build the EXPERIMENTAL target.
+
+Ctest will build and test the project and submit results to the Kitware public
+dashboard. The results of your dashboard will be uploaded to Kitware's public
+dashboard here: https://my.cdash.org/index.php?project=CMakeTutorial.
